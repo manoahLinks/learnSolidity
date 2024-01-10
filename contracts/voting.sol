@@ -1,17 +1,19 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.1;
+// SPDX-License-Identifier: UNLICIENCED
+pragma solidity ^0.8.9;
 
 contract Voting {
 
-    // =============================
-    //       STORAGE
-    // =============================
+    // constructor
+    constructor () {
+        // set the tx sender as the contract owner
+        owner = msg.sender;
+    }
 
     // voter struct
     struct Voter {
         bool isRegistered;
         bool hasVoted;
-        uint256 votedCandidateId;
+        uint8 votedCandidateId;
     }   
 
     // candidate struct
@@ -21,31 +23,60 @@ contract Voting {
         uint256 voteCount;   
     }
 
-    // all voters and candidates
-    Voter[] public voters;
-    Candidate[] public candidates;
+    // owner 
+    address public owner;
 
-
-    uint256 public candidatesCount;
+    //counts 
+    uint8 public candidatesCount;
     uint256 public votersCount;
 
-    mapping (address => Voter) voterDetails;
-    mapping (uint8 => Candidate) candidateDetails;
+    //voters & candidates 
+    mapping (address => Voter) public voters;
+    mapping (uint8 => Candidate) public candidates;
 
-
+    // register voter
     function registerVoter () public {
-        // check if candidate is registered
-        require(!voterDetails[msg.sender].isRegistered, "voter already registered");
-        Voter memory newVoter = Voter(true, false, votersCount ++);
-        voterDetails[msg.sender].isRegistered == true;
-        voterDetails[msg.sender].hasVoted == false;
-        voters.push(newVoter);
+        // check if voter is registered
+        require(!voters[msg.sender].isRegistered, "voter already registered");
+
+        // setting voters properties
+        voters[msg.sender].isRegistered = true;
+        voters[msg.sender].hasVoted = false;
+
+        // incrementing voters count
         votersCount++;
-
     }
 
-    function getAllVoters () public view returns (Voter[] memory) {
-        return voters;
+    // add a candidate func can be called by onlyOwner
+    function addCandidate (string memory _name) public onlyOwner {
+        // setting new candidate
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+
+        // incrementing candidates count
+        candidatesCount ++;
     }
 
+    // vote function
+    function vote(uint8 _candidateId) public {
+        // require voter is registered
+        require(voters[msg.sender].isRegistered, "voter not yet registered");
+
+        // require voter has not voted 
+        require(!voters[msg.sender].hasVoted, "Already voted");
+
+        // require candidateId exists
+        require(_candidateId >= 0 && _candidateId < candidatesCount, "candidate does not exist");
+
+        // setting voters properties after voting
+        voters[msg.sender].hasVoted = true;
+        voters[msg.sender].votedCandidateId = _candidateId;
+
+        // incrementing voted candidates count
+        candidates[_candidateId].voteCount ++;
+    }
+
+    modifier onlyOwner () {
+        require(msg.sender == owner, "caller not owner");
+        _;
+    }
 }
