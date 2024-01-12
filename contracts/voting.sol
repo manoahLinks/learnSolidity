@@ -26,9 +26,10 @@ contract Voting {
     // owner 
     address public owner;
 
-    //counts 
+    // storage counts
     uint8 public candidatesCount;
     uint256 public votersCount;
+    uint256 public totalVotes;
 
     //voters & candidates 
     mapping (address => Voter) public voters;
@@ -73,6 +74,9 @@ contract Voting {
 
         // incrementing voted candidates count
         candidates[_candidateId].voteCount ++;
+
+        // incrementing total votes 
+        totalVotes ++;
     }
 
     modifier onlyOwner () {
