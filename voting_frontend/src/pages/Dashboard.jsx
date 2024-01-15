@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
 import { CandidateForm } from "../components";
 import { useState } from "react";
+import {HiUser} from 'react-icons/hi2';
 
 const Dashboard = () => {
 
@@ -12,8 +13,13 @@ const Dashboard = () => {
 
     return ( 
         <div className="flex flex-col p-5 w-full gap-y-12">
-            <div>
-                <button onClick={setModal} className="bg-slate-500 p-2 flex items-center gap-x-2">
+            <div className="flex justify-between items-center">
+                <span className="flex items-center gap-x-2">
+                    <HiUser/>
+                    <small>Registered</small>
+                </span>
+                
+                <button onClick={setModal} className="underline flex items-center gap-x-2">
                     <h4>Add Candidate</h4>
                 </button>
             </div>
