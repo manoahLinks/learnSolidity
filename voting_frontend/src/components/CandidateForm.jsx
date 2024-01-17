@@ -45,7 +45,7 @@ const CandidateForm = ({closeModal}) => {
     }
 
     return ( 
-        <div className="absolute inset-0 z-[200] flex justify-center bg-overlayPrimary pt-[140px] bg-slate-800 bg-opacity-30">
+        <div className="absolute inset-0 z-[200] flex justify-center pt-[140px] bg-slate-800 bg-opacity-30">
             <div className="flex flex-col mx-auto w-4/12 gap-y-2">
                 <button className="ml-auto p-2 rounded-full bg-slate-200" onClick={closeModal}>
                     <HiMiniXMark strokeWidth={3} color="red"/>
