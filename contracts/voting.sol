@@ -26,6 +26,9 @@ contract Voting {
     // owner 
     address public owner;
 
+    // allCandidates array
+    Candidate[] public allCandidates;
+
     // storage counts
     uint8 public candidatesCount;
     uint256 public votersCount;
@@ -51,7 +54,7 @@ contract Voting {
     // add a candidate func can be called by onlyOwner
     function addCandidate (string memory _name) public onlyOwner {
         // setting new candidate
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+        allCandidates.push(Candidate(candidatesCount, _name, 0)); 
 
         // incrementing candidates count
         candidatesCount ++;
