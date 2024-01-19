@@ -3,11 +3,24 @@ import { CandidateForm, CandidateModal } from "../components";
 import { useState } from "react";
 import {HiUser} from 'react-icons/hi2';
 import CandidatesModal from "../components/candidateModal";
+import votingAbi from '../../utils/votingAbi.json';
+import { useContractReads } from 'wagmi';
 
 const Dashboard = () => {
 
     const [candidateForm, setCandidateForm] = useState(false);
     const [candidatesModal, setCandidatesModal] = useState(false);
+
+    const { data } = useContractReads({
+        contracts: [
+          {
+            address: '0xa2D8d027a950e4288317FDAF241bad6Bef1761a2',
+            abi: votingAbi,
+            functionName: 'voters',
+            args: []
+          },
+        ],
+      })
 
     const setModal = () => {
         setCandidateForm(true)
