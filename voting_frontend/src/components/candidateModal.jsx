@@ -7,9 +7,15 @@ const CandidatesModal = ({closeModal}) => {
     const {data} = useContractReads({
         contracts: [
             {
-                address: '0xf43409AD775624f5a42Efc394B59bE41f5cd09B6',
+                address: '0xa2D8d027a950e4288317FDAF241bad6Bef1761a2',
                 abi: votingAbi,
                 functionName: 'candidatesCount',
+              },
+
+              {
+                address: '0xa2D8d027a950e4288317FDAF241bad6Bef1761a2',
+                abi: votingAbi,
+                functionName: 'allCandidate',
               },
         ]
     })
@@ -19,20 +25,24 @@ const CandidatesModal = ({closeModal}) => {
                 <button className="ml-auto p-2 rounded-full bg-slate-200" onClick={closeModal}>
                     <HiMiniXMark strokeWidth={3} color="red"/>
                 </button>
-                
+            
                 <h4>{String(data?.[0].result) ?? 'not found'}</h4>
 
-                <div className="grid grid-cols-3 gap-x-[50px]">
-                    <div className="border p-2 border-slate-300 rounded-md flex flex-col items-center">
-                        <h4>Manoah</h4>
-                        <button>
-                            vote
-                        </button>
-                    </div>
-
-                    <div className="border p-2 border-slate-300 rounded-md">
-
-                    </div>
+                <div className="grid grid-cols-3 gap-x-[20px] bg-white p-5 rounded-lg">
+                    
+                    {data?.[1].result.map((item)=>(
+                        <div className="shadow p-2 border-slate-300 rounded-md flex flex-col items-center gap-y-4">
+                            <h4>{item.id}</h4>
+                            <h4>{item.name}</h4>
+                            <h4>{item.voteCount}</h4>
+                            <button
+                                className="p-2 px-4 bg-green-500 text-white text-xs rounded-full"
+                            >
+                                vote
+                            </button>
+                        </div>
+                    )) ?? 'not found'}
+                   
                 </div>
             </div>   
         </div>

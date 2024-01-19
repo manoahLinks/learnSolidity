@@ -9,22 +9,22 @@ const Main = () => {
     const { data } = useContractReads({
         contracts: [
           {
-            address: '0xf43409AD775624f5a42Efc394B59bE41f5cd09B6',
+            address: '0xa2D8d027a950e4288317FDAF241bad6Bef1761a2',
             abi: votingAbi,
             functionName: 'owner',
           },
           {
-            address: '0xf43409AD775624f5a42Efc394B59bE41f5cd09B6',
+            address: '0xa2D8d027a950e4288317FDAF241bad6Bef1761a2',
             abi: votingAbi,
             functionName: 'candidatesCount',
           },
           {
-            address: '0xf43409AD775624f5a42Efc394B59bE41f5cd09B6',
+            address: '0xa2D8d027a950e4288317FDAF241bad6Bef1761a2',
             abi: votingAbi,
             functionName: 'votersCount',
           },
           {
-            address: '0xf43409AD775624f5a42Efc394B59bE41f5cd09B6',
+            address: '0xa2D8d027a950e4288317FDAF241bad6Bef1761a2',
             abi: votingAbi,
             functionName: 'totalVotes',
           },

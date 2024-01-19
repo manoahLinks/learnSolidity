@@ -9,7 +9,7 @@ const CandidateForm = ({closeModal}) => {
 
     // config for add candtate func
     const { config } = usePrepareContractWrite({
-        address: '0xf43409AD775624f5a42Efc394B59bE41f5cd09B6',
+        address: '0xa2D8d027a950e4288317FDAF241bad6Bef1761a2',
         abi: votingAbi,
         functionName: 'addCandidate',
         args: [candidateName]
