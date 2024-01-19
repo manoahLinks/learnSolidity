@@ -53,11 +53,19 @@ contract Voting {
 
     // add a candidate func can be called by onlyOwner
     function addCandidate (string memory _name) public onlyOwner {
-        // setting new candidate
+        
+        //mapping new candidate with last candidateCount 
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+        
+        // setting new candidate and puahing to all candidates array
         allCandidates.push(Candidate(candidatesCount, _name, 0)); 
 
         // incrementing candidates count
         candidatesCount ++;
+    }
+
+    function allCandidate () public  view returns (Candidate[] memory) {
+        return allCandidates;
     }
 
     // vote function
